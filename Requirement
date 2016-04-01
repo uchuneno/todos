@@ -1,0 +1,83 @@
+**Requirements:**
+
+1. GUEST bisa register sebagai USER dengan memberikan email dan passwordnya
+2. USER bisa login ke dalam sistem dengan menggunakan email dan password yang benar
+3. USER bisa membuat task item dengan memberikan nama tasknya
+4. USER bisa menampilkan list task item yang dimilikinya
+5. USER bisa menghapus task item yang dimilikinya
+6. USER tidak bisa melihat, atau menghapus task item yang dimiliki user lainnya
+
+
+1. GUEST bisa register sebagai USER dengan memberikan email dan passwordnya
+
+- Buat model user : user.rb
+- Buat controller users_controller.rb.
+	+ Show: Nampilin 1 User
+	+ New: Nampilin Form Create
+	+ Create: Logic Create
+- Buat tampilannya
+	+ new.html.erb : Form Create User
+	+ show.html.erb : Nampilkan profile user
+- Buat routes
+	+ GET /users/new : New User Form
+	+ POST /users : Create User
+	+ GET /users/:id : Show user profile
+
+
+2. USER bisa login ke dalam sistem dengan menggunakan email dan password yang benar
+- Routes 
+	+ GET /login : sessions#new
+	+ POST /login : sessions#create
+	+ DELETE /logout : sessions#destroy
+- Buat tampilannya
+	+ new.html.erb : Form Login User
+- Buat controller Session : session_controller.rb
+	+ New : Menampilan form user
+	+ Create : Mencocokan data user dan direct langsung ke page user jika login benar atau menampilkan page error jika login salah
+	+ Destroy : Keluar dari page user / Ke home page
+
+- Buat application_controller.rb : handle valid submission yang benar dengan temporary session cookies yang expires otomatis
+- Buat sessions_helper 
+	+ User : Untuk user yang ingin login
+	+ Current user : Untuk user yang sama
+	+ Logged In : Menampilan page users
+	+ Logout : Menampilkan home page  
+	
+3. USER bisa membuat task item dengan memberikan nama tasknya
+
+- Buat table todo_item. todo_item.rb
+- Buat controller todo_items_controller.rb.
+	+ Index: Nempilkan List todo items
+	+ Show: Nampilin 1 todo item
+	+ New: Nampilin Form create todo item
+	+ Create: Logic Create
+	+ Edit: Edit 1 todo item
+	+ Update: Logic Update
+	+ Destroy: Delete 1 todo item
+- Buat tampilannya
+	+ index.html.erb : List Todo Items
+	+ new.html.erb : Form Create Todo Item
+	+ show.html.erb : Nampilkan 1 Todo Item
+	+ edit.html.erb : Edit Form
+- Buat routes
+	+ GET /todo_items
+	+ GET /todo_items/new
+	+ POST /todo_items
+	+ GET /todo_items/:id
+	+ GET /todo_items/:id/edit
+	+ PATCH /todo_items/:id
+	+ DELETE /todo_items/:id
+
+4. USER bisa menampilkan list task item yang dimilikinya
+- Buat tabel database index list task
+- Buat model index task.rb dan user.rb
+- Buat tampilannya 
+	+ Show: menampilkan list task item yang dimiliki 
+- Setting users_controller.rb
+- Resource :todos
+
+5. USER bisa menghapus task item yang dimilikinya
++ DELETE /task/:id => tasks#destroy
+
+6. USER tidak bisa melihat, atau menghapus task item yang dimiliki user lainnya
++ GET /task/:id => tasks#show
